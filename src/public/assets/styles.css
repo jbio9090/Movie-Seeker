@@ -1,0 +1,679 @@
+:root {
+    /* colors */
+    --black: #1F1F1F;
+    --darkerBlack: rgb(21, 21, 21);
+    --white: #eee;
+    --gray: #2F2F2F;
+    --lightGray: #5D5D5D;
+    --bruhGray: #BEBEBE;
+    --orange: #CC7146;
+    --red: rgb(156, 9, 9);
+    --lightRed: rgb(255, 154, 154);
+
+
+    /* font sizes */
+    --tiny: .875rem;
+    /* 14px */
+
+    --p: 1rem;
+    /* 16px */
+
+    --nav: 1.135rem;
+
+    --h1: 4.5rem;
+    /* 72px */
+
+    --h2: 2.25rem;
+    /* 32px */
+
+    --h3: 1.75rem;
+
+    --h5: 1.25rem;
+
+
+
+
+    --cardWidth: 175px;
+}
+
+
+/* || General Styles */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+h1 {
+    font-family: 'ClashDisplayBold', 'Segoe UI';
+    font-size: var(--h1);
+}
+
+h2 {
+    font-family: 'InterSemibold', 'Helvetica';
+    font-size: var(--h2);
+}
+
+h3 {
+    font-family: 'InterRegular', 'Helvetica';
+    font-size: var(--h3);
+    color: var(--bruhGray);
+}
+
+h5 {
+    font-family: 'InterSemibold', 'Helvetica';
+    font-size: 1.125rem;
+}
+
+p {
+    font-family: 'InterRegular';
+    font-size: var(--p);
+}
+
+.navMargin {
+    margin-top: 7.5rem;
+}
+
+img {
+    max-width: 100%;
+}
+
+.fancy {
+    font-family: 'ClashDisplay';
+}
+
+.statusMessage {
+    margin: 9rem auto;
+    max-width: min(60%, 40rem);
+    text-align: center;
+}
+
+.statusMessage * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.statusMessage a {
+    display: block;
+    font-family: 'InterRegular';
+    color: var(--white);
+    margin-top: 3rem;
+}
+
+.statusMessage a:hover {
+    color: var(--orange);
+}
+
+.resultMessage {
+    text-align: center;
+    color: var(--red);
+    background-color: var(--lightRed);
+    border-radius: 12px;
+    padding: 0.7rem;
+    border: 1px solid var(--red);
+    width: 100%;
+}
+
+.queryDisplay {
+    max-width: min(90%, 86rem);
+    margin: 1rem auto 3rem auto;
+}
+
+.container {
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.nostyleform {
+    margin: auto;
+    margin-right: 0;
+}
+
+/* || Typography */
+@font-face {
+    font-family: "ClashDisplayBold";
+    src: url("./fonts/ClashDisplay-Bold.otf");
+}
+
+@font-face {
+    font-family: 'InterLight';
+    src: url("./fonts/Inter_28pt-Light.ttf");
+}
+
+@font-face {
+    font-family: 'InterRegular';
+    src: url("./fonts/Inter_28pt-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'InterMedium';
+    src: url("./fonts/Inter_28pt-Medium.ttf");
+}
+
+@font-face {
+    font-family: "InterSemibold";
+    src: url("./fonts/Inter_28pt-SemiBold.ttf");
+}
+
+
+
+/* || Header and Navigation */
+
+.navLinks {
+    font-family: "InterSemibold", 'Helvetica';
+}
+
+.navBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 0;
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.navList {
+    display: flex;
+    width: 50%;
+    gap: 2rem;
+    justify-content: flex-end;
+    list-style-type: none;
+    justify-self: flex-end;
+    margin-left: auto;
+}
+
+.navLinks {
+    text-decoration: none;
+    color: var(--white);
+    font-family: 'InterSemibold';
+    font-size: var(--nav);
+}
+
+.navLinks:hover {
+    color: var(--orange);
+}
+
+.navIcons {
+    display: none;
+}
+
+
+
+
+
+/* || Hero and Banner Section */
+
+.topMarginHero {
+    height: 9.125rem;
+    background: linear-gradient(rgba(23, 20, 20, 1.0), rgba(33, 20, 20, .0));
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(rgba(33, 20, 20, 0.45),
+            rgba(33, 20, 20, 0.45)),
+        url('./placeholder.webp');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    background-color: #1f1f1f68;
+    height: 34.5rem;
+}
+
+.heroTitle {
+    color: var(--orange);
+}
+
+.heroTextContainer {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.heroTextContainer * {
+    margin: 0;
+}
+
+
+
+
+/* || Search Forms */
+
+.searchForm {
+    max-width: min(80%, 50rem);
+    width: 100%;
+    margin: 4rem auto;
+    background-color: var(--gray);
+}
+
+form input {
+    width: 100%;
+    padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-family: 'InterLight', 'Helvetica';
+    color: var(--white);
+    background-color: var(--gray);
+    border-radius: 12px;
+    border: none;
+}
+
+form input:focus {
+    outline: none;
+}
+
+.searchForm:focus-within,
+.searchFormLong:focus-within {
+    outline: var(--bruhGray) 1px solid;
+    border: none;
+}
+
+.searchForm,
+.searchFormLong {
+    display: flex;
+    background-color: var(--gray);
+    border-radius: 12px;
+    padding: 0 1.25rem;
+}
+
+.searchFormLong {
+    max-width: min(90%, 86rem);
+    width: 100%;
+    margin: 4rem auto;
+}
+
+form button {
+    background-color: transparent;
+    border: none;
+    color: var(--bruhGray);
+    cursor: pointer;
+}
+
+form button:hover {
+    color: var(--white);
+}
+
+form button svg {
+    display: block;
+    height: 40%;
+    min-width: 1.5rem;
+    background-color: transparent;
+}
+
+
+
+
+/* || Login Form */
+
+.loginForm {
+    width: min(50%, 42rem);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.loginForm input {
+    margin-bottom: 1rem;
+}
+
+.h2Form {
+    font-family: 'ClashDisplayBold';
+    text-align: center;
+}
+
+.formButton {
+    font-family: 'InterMedium';
+    padding: 1rem 1.125rem;
+    font-size: var(--p);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    color: var(--white);
+    background-color: var(--lightGray);
+    border: none;
+    border-radius: 12px;
+    margin-top: 3rem;
+}
+
+.loginForm a {
+    font-size: var(--p);
+    font-family: 'InterRegular';
+    color: var(--white);
+}
+
+.loginForm a:hover {
+    color: var(--orange);
+}
+
+.createNewAccountLink {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.loginForm .loginFormLink {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+
+
+/* || Movie Cards */
+
+.cardContainer {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.movieCard {
+    padding: 8px;
+    cursor: pointer;
+    width: var(--cardWidth);
+    min-width: var(--cardWidth);
+}
+
+.movieCard:hover .movieCardTitle {
+    color: var(--orange);
+}
+
+.movieCard:hover .moviePoster {
+    transform: scale(104%);
+}
+
+.movieCardTitle {
+    margin-bottom: 0.25rem;
+    font-size: var(--p);
+}
+
+.movieCardGenres {
+    font-family: "InterLight";
+    font-size: var(--tiny);
+    color: var(--bruhGray);
+}
+
+.moviePoster {
+    width: 100%;
+    min-height: calc(var(--cardWidth) * 1.5);
+    height: calc(var(--cardWidth) * 1.5);
+    object-fit: cover;
+    position: relative;
+}
+
+
+@media (max-width: 950px) {
+    .cardContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* || Movie Page Styles */
+
+.movieGenreContainer {
+    display: flex;
+    gap: 12px;
+    flex-flow: row wrap;
+}
+
+.movieGenreSpan,
+.addToWatchlistButton {
+    padding: 8px 12px;
+    border: var(--bruhGray) solid 1px;
+    border-radius: 24px;
+    font-family: 'InterSemibold';
+    font-size: var(--tiny);
+    color: var(--white);
+}
+
+.movieContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 26rem;
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.backdropContainer {
+    width: 100%;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.movieDetailsContainer {
+    max-width: 600px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: var(--darkerBlack);
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.moviePageTitle {
+    font-family: 'ClashDisplayBold';
+    margin: 16px 0 12px 0;
+}
+
+.movieDetailsContainer p {
+    color: var(--bruhGray);
+}
+
+.movieReleaseDate {
+    font-family: 'InterLight';
+    color: var(--bruhGray);
+    margin-bottom: 16px;
+}
+
+.bottomContainer {
+    display: flex;
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+.addToWatchlistButton {
+    cursor: pointer;
+    margin-right: 0;
+    margin-left: auto;
+    background-color: var(--black);
+}
+
+.addToWatchlistButton:hover {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.userScore {
+    color: var(--bruhGray);
+    font-family: "ClashDisplayBold";
+    display: flex;
+    align-items: center;
+}
+
+.actorsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.flexContainer {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    gap: 1rem;
+}
+
+.actorProfile {
+    max-width: 120px;
+}
+
+.actorProfile img {
+    max-width: 120px;
+    min-width: 120px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.actorProfile .actorName {
+    font-family: "InterSemibold";
+    margin-bottom: 0;
+}
+
+.actorProfile .characterName {
+    color: var(--bruhGray);
+    font-family: 'InterRegular';
+    margin-top: 6px;
+}
+
+.actorProfile * {
+    display: block;
+    text-align: center;
+}
+
+.showMoreButton {
+    margin: auto 0;
+    height: min-content;
+    width: 120px;
+    max-width: 120px;
+    font-family: "InterSemibold";
+    font-size: 1.125rem;
+    background-color: var(--black);
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.showMoreButton:hover {
+    color: var(--orange);
+}
+
+.galleryContainer {
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.mainDisplay {
+    max-height: 32rem;
+    background-color: #00000072;
+}
+
+.mainDisplay img {
+    display: block;
+    max-height: 32rem;
+    height: 32rem;
+    object-fit: contain;
+    margin: auto;
+}
+
+.previewContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    overflow-x: scroll;
+    margin: 24px auto;
+    gap: 12px;
+}
+
+.previewImage img {
+    cursor: pointer;
+    min-height: 4rem;
+    min-width: 8rem;
+}
+
+
+/* || Index Page */
+.indexContainer {
+    max-width: min(90%, 86rem);
+    margin: auto;
+}
+
+.sliderContainer {
+    display: flex;
+    overflow-x: scroll;
+    height: max-content;
+    gap: 16px;
+    flex: 1 1 0;
+    padding-bottom: 2rem;
+}
+
+.sliderContainer .movieCard {
+    min-width: 10rem;
+    width: calc(5rem + 5vw);
+}
+
+
+/* || Footer */
+
+footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem 0;
+    margin: 3rem auto;
+}
+
+.footerText {
+    font-family: "InterLight";
+    color: var(--bruhGray);
+    text-align: center;
+}
+
+
+
+/* || Account  */
+
+.username {
+    color: var(--white);
+    font-family: "InterSemiBold";
+}
+
+.logoutLink {
+    color: var(--white);
+    font-size: var(--p);
+    font-family: "InterRegular";
+}
+.logoutLink:hover {
+    color: var(--orange);
+}
+
+
+
+
+/* || Utilities */
+
+.activeButton {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+
+.fancy {
+    font-family: 'ClashDisplayBold';
+}
+
+
+.none {
+    display: none;
+}
+
+.fuiyo {
+    width: 100%;
+}
