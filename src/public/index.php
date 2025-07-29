@@ -56,4 +56,5 @@ try {
     http_response_code(404);
     echo $errorPage->render();
     exit;
+    
 }

@@ -6,12 +6,16 @@
     --gray: #2F2F2F;
     --lightGray: #5D5D5D;
     --bruhGray: #BEBEBE;
+    --lightOrange: #e09876;
     --orange: #CC7146;
     --red: rgb(156, 9, 9);
     --lightRed: rgb(255, 154, 154);
 
 
     /* font sizes */
+    --veryTiny: 12px;
+
+
     --tiny: .875rem;
     /* 14px */
 
@@ -33,7 +37,7 @@
 
 
 
-    --cardWidth: 175px;
+    --cardWidth: 150px;
 }
 
 
@@ -141,6 +145,11 @@ img {
 }
 
 @font-face {
+    font-family: "ClashDisplaySemibold";
+    src: url("./fonts/ClashDisplay-Semibold.otf");
+}
+
+@font-face {
     font-family: 'InterLight';
     src: url("./fonts/Inter_28pt-Light.ttf");
 }
@@ -207,6 +216,7 @@ nav {
 .navIcons {
     display: none;
 }
+
 
 
 
@@ -383,6 +393,7 @@ form button svg {
     cursor: pointer;
     width: var(--cardWidth);
     min-width: var(--cardWidth);
+    position: relative;
 }
 
 .movieCard:hover .movieCardTitle {
@@ -412,6 +423,34 @@ form button svg {
     position: relative;
 }
 
+.movieCardScore {
+    color: var(--white);
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    bottom: 29.5%;
+    right: 5%;
+    background-color: var(--gray);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--orange);
+    mask:
+        linear-gradient(red 0 0) padding-box,
+        conic-gradient(red 50%, transparent 0%) border-box;
+}
+
+.movieCardScore span {
+    font-family: "ClashDisplaySemibold";
+    text-align: center;
+    font-size: var(--veryTiny);
+}
+
+.movieCard .veryTiny {
+    font-size: 8px;
+    display: inline;
+}
 
 @media (max-width: 950px) {
     .cardContainer {
@@ -612,11 +651,33 @@ form button svg {
     gap: 16px;
     flex: 1 1 0;
     padding-bottom: 2rem;
+    scrollbar-color: var(--lightGray) var(--gray);
 }
 
 .sliderContainer .movieCard {
     min-width: 10rem;
     width: calc(5rem + 5vw);
+}
+
+
+@media (max-width: 768px) {
+    .movieContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .backdropContainer {
+        min-height: 250px;
+        max-height: 100%;
+        max-width: 100%;
+        background-position: center top;
+        display: block;
+    }
+
+    .movieDetailsContainer {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 
@@ -650,6 +711,7 @@ footer {
     font-size: var(--p);
     font-family: "InterRegular";
 }
+
 .logoutLink:hover {
     color: var(--orange);
 }
@@ -676,4 +738,29 @@ footer {
 
 .fuiyo {
     width: 100%;
+}
+
+.darkGreenScore {
+    color: rgb(7, 186, 7);
+    border-color: rgb(7, 186, 7);
+}
+
+.lightGreenScore {
+    color: rgb(181, 228, 150);
+    border-color: rgb(181, 228, 150);
+}
+
+.yellowScore {
+    color: rgb(249, 249, 132);
+    border-color: rgb(249, 249, 132);
+}
+
+.orangeScore {
+    color: var(--lightOrange);
+    border-color: var(--orange);
+}
+
+.redScore {
+    color: var(--lightRed);
+    border-color: var(--red);
 }

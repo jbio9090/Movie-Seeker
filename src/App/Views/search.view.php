@@ -16,6 +16,7 @@
     <h3 class="queryDisplay">Search Results for "<?php echo ($this->params['query'] ?? '') ?>"</h3>
 <?php endif; ?>
 
+
 <div class="cardContainer">
     <?php if (isset($this->params['content'])): ?>
 
@@ -39,6 +40,32 @@
                             ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
+                </div>
+
+                <?php
+                $percent_score = round((float) $movie['vote_average'] * 10);
+                $color;
+                if ($percent_score > 80) {
+                    $color = "darkGreenScore";
+                } else if ($percent_score > 60) {
+                    $color = "lightGreenScore";
+                } else if ($percent_score > 40) {
+                    $color = "yellowScore";
+                } else if ($percent_score > 20) {
+                    $color = "orangeScore";
+                } else {
+                    $color = "redScore";
+                }
+                ?>
+                
+                <div class="movieCardScore <?php echo $color ?>" style="<?php echo "mask:         
+                linear-gradient(red 0 0) padding-box,
+                conic-gradient(red $percent_score%, transparent 0%) border-box;" ?>">
+                    <span><?php echo $percent_score; ?>
+                        <span class="veryTiny">
+                            %
+                        </span>
+                    </span>
                 </div>
             </div>
 

@@ -34,9 +34,10 @@
 
         <div class="bottomContainer">
             <div class="userScore">
+                <?php $vote_average = $this->params['content']['vote_average'] ?>
                 <span>
                     User Score -
-                    <span><?php echo " " . $this->params['content']['vote_average'] ?? 'N/A' ?></span>
+                    <span><?php echo " " . $vote_average ?? 'N/A' ?></span>
                 </span>
 
             </div>
@@ -46,6 +47,7 @@
                 <input type="hidden" name="in_watchlist" value="<?php echo $this->params['in_watchlist'] ?>">
                 <input type="hidden" name="title" value="<?php echo $this->params['content']['title'] ?>">
                 <input type="hidden" name="poster_path" value="<?php echo $this->params['content']['poster_path'] ?>">
+                <input type="hidden" name="vote_average" value="<?php echo $vote_average ?? null ?>">
 
                 <?php if (isset($this->params['content']['genres'])): ?>
                     <?php foreach ($this->params['content']['genres'] as $genre): ?>
@@ -154,6 +156,31 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
+
+                <?php
+                $percent_score = round((float) $movie['vote_average'] * 10);
+                $color;
+                if ($percent_score > 80) {
+                    $color = "darkGreenScore";
+                } else if ($percent_score > 60) {
+                    $color = "lightGreenScore";
+                } else if ($percent_score > 40) {
+                    $color = "yellowScore";
+                } else if ($percent_score > 20) {
+                    $color = "orangeScore";
+                } else {
+                    $color = "redScore";
+                }
+                ?>
+                <div class="movieCardScore <?php echo $color ?>" style="<?php echo "mask:         
+                linear-gradient(red 0 0) padding-box,
+                conic-gradient(red $percent_score%, transparent 0%) border-box;" ?>">
+                    <span><?php echo $percent_score; ?>
+                        <span class="veryTiny">
+                            %
+                        </span>
+                    </span>
+                </div>
             </div>
 
         <?php endforeach; ?>
@@ -191,12 +218,12 @@
                     showMore.textContent = "Show Less";
                 } else {
                     item.querySelector("img").src = item.dataset.src;
-                    showMore.textContent= "Show All";
+                    showMore.textContent = "Show All";
                 }
 
                 item.classList.toggle("none")
-        });
-            }
+            });
+        }
 
     </script>
 <?php endif; ?>

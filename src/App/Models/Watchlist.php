@@ -53,6 +53,7 @@ class Watchlist
             $watchlist[$id]['poster_path'] = $movie['poster_path'];
             $watchlist[$id]['genre_ids'] = explode(",", $movie['genre_ids']);
             $watchlist[$id]['time_added'] = $movie['time_added'];
+            $watchlist[$id]['vote_average'] = $movie['vote_average']; 
         }
 
         return $watchlist;
@@ -64,14 +65,15 @@ class Watchlist
         string $title,
         string $poster_path,
         array $genre_ids,
+        float $vote_average
         )
     {
         $db = Database::connect();
 
         $str_genre_ids = implode(",", $genre_ids);
 
-        $sql = "INSERT INTO watchlist (watchlist_id, user_id, movie_id, poster_path, title, genre_ids) 
-        VALUES (UUID(), :user_id, :movie_id, :poster_path, :title, :genre_ids)";
+        $sql = "INSERT INTO watchlist (watchlist_id, user_id, movie_id, poster_path, title, genre_ids, vote_average) 
+        VALUES (UUID(), :user_id, :movie_id, :poster_path, :title, :genre_ids, :vote_average)";
 
         try {
             $stmt = $db->prepare($sql);
@@ -80,6 +82,7 @@ class Watchlist
             $stmt->bindValue('poster_path', $poster_path);
             $stmt->bindValue('title', $title);
             $stmt->bindValue('genre_ids', $str_genre_ids);
+            $stmt->bindValue('vote_average', $vote_average);
             $stmt->execute();
         } catch (WatchlistAddMovieErrorException $e) {
             //

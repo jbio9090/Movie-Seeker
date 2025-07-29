@@ -65,6 +65,7 @@ class MoviePageController
         $movie_title = $_POST['title'];
         $genre_ids = $_POST['genre_ids'] ?? null;
         $poster_path = $_POST['poster_path'] ?? null;
+        $vote_average = (float) ($_POST['vote_average'] ?? 0);
 
         if ($in_watchlist == 1) {
             Watchlist::delete($user_id, $movie_id);
@@ -74,7 +75,8 @@ class MoviePageController
                 $movie_id,
                 $movie_title,
                 $poster_path,
-                $genre_ids
+                $genre_ids,
+                $vote_average
             );
         }
 

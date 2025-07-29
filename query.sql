@@ -18,4 +18,6 @@ CREATE TABLE watchlist (
     poster_path     varchar(255)            NOT NULL,
     genre_ids       varchar(128)            NOT NULL,
     title           varchar(255)            NULL,
+    time_added      timestamp               DEFAULT current_timestamp(),
+    vote_average    decimal(2, 1)           NULL
 );
