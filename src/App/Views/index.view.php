@@ -36,7 +36,7 @@
 
             <div class="movieCard" onclick="location.href='./movie?id=<?php echo $movie['id'] ?>'">
                 <img class="moviePoster" src="<?php echo (isset($movie['poster_path'])) ?
-                    "https://image.tmdb.org/t/p/w500/" . $movie['poster_path']
+                    "https://image.tmdb.org/t/p/w200/" . $movie['poster_path']
                     : "./assets/placeholders/default_poster.jpg"; ?>" alt="<?php echo $movie['title'] . " poster" ?>">
 
                 <h5 class="movieCardTitle"><?php echo $movie['title'] ?></h5>
@@ -57,13 +57,13 @@
                 <?php
                 $percent_score = round((float) $movie['vote_average'] * 10);
                 $color;
-                if ($percent_score > 80) {
+                if ($percent_score >= 80) {
                     $color = "darkGreenScore";
-                } else if ($percent_score > 60) {
+                } else if ($percent_score >= 60) {
                     $color = "lightGreenScore";
-                } else if ($percent_score > 40) {
+                } else if ($percent_score >= 40) {
                     $color = "yellowScore";
-                } else if ($percent_score > 20) {
+                } else if ($percent_score >= 20) {
                     $color = "orangeScore";
                 } else {
                     $color = "redScore";

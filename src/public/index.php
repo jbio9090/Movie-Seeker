@@ -4,7 +4,6 @@ namespace App;
 
 use App\Exceptions\RouteNotFoundException;
 
-
 $autoload = dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 if (!is_readable($autoload)) {
@@ -18,8 +17,8 @@ use App\Router;
 use App\Controllers;
 use Dotenv\Dotenv;
 
-define("VIEW_PATH", __DIR__ . "\..\App\\Views\\");
-define("CSS_PATH", __DIR__ . "\assets\styles.css");
+define("VIEW_PATH", __DIR__ . "/../App/Views/");
+define("CSS_PATH", __DIR__ . "/assets/styles.css");
 
 
 try {
@@ -40,7 +39,7 @@ try {
         ->post('/movie' , [Controllers\MoviePageController::class, 'addToWatchlist']);
 
 
-    $dotenv = Dotenv::createImmutable(__DIR__ . "\..\..\\");
+    $dotenv = Dotenv::createImmutable(__DIR__ . "/../../");
     $dotenv->load();
 
     session_start();

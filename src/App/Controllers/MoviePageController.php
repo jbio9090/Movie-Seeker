@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Models\TMDB_API;
@@ -50,39 +51,45 @@ class MoviePageController
     {
 
         if (!isset($_SESSION['user'])) {
-            $view = new View(
-                "login-required.view",
-                ["title" => "Watchlist - Login Required"]
-            );
 
-            echo $view->render();
+            http_response_code(401);
+            header("Content-Type: application/json");
+
+            echo json_encode(["message" => "not_logged_in"]);
             exit;
         }
+
+
+        header("Content-Type: application/json");
 
         $in_watchlist = $_POST['in_watchlist'];
         $movie_id = $_POST['movie_id'];
         $user_id = $_SESSION['user'];
-        $movie_title = $_POST['title'];
-        $genre_ids = $_POST['genre_ids'] ?? null;
-        $poster_path = $_POST['poster_path'] ?? null;
-        $vote_average = (float) ($_POST['vote_average'] ?? 0);
+
+        $result_message = '';
 
         if ($in_watchlist == 1) {
             Watchlist::delete($user_id, $movie_id);
+            $result_message = 'deleted';
         } else {
+            $movie_title = $_POST['title'];
+            $genre_ids = $_POST['genre_ids'] ?? null;
+            $poster_path = $_POST['poster_path'] ?? null;
+            $vote_average = (float) ($_POST['vote_average'] ?? 0);
+
             Watchlist::add(
-                $user_id, 
+                $user_id,
                 $movie_id,
                 $movie_title,
                 $poster_path,
                 $genre_ids,
                 $vote_average
             );
+            $result_message = 'added';
         }
 
-        header("Location: ./movie?id=" . $movie_id);
-        exit;
 
+        echo json_encode(['message' => $result_message]);
+        exit;
     }
 }
-

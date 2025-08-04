@@ -43,12 +43,12 @@ class TMDB_API
         return self::$genres;
     }
 
-    public static function searchMovie(string $query, array $params = []): array
+    public static function searchMovie(string $query, int $page = 1): array
     {
         $client = new \GuzzleHttp\Client();
 
 
-        $response = $client->request('GET', "https://api.themoviedb.org/3/search/movie?query=$query&include_adult=false&language=en-US&page=1", [
+        $response = $client->request('GET', "https://api.themoviedb.org/3/search/movie?query=$query&include_adult=false&language=en-US&page=$page", [
             'headers' => [
                 'Authorization' => 'Bearer ' . $_ENV['API_KEY'],
                 'accept' => 'application/json',

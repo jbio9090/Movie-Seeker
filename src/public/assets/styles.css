@@ -3,6 +3,7 @@
     --black: #1F1F1F;
     --darkerBlack: rgb(21, 21, 21);
     --white: #eee;
+    --darkerWhite: #c1c1c1;
     --gray: #2F2F2F;
     --lightGray: #5D5D5D;
     --bruhGray: #BEBEBE;
@@ -260,6 +261,32 @@ nav {
 
 /* || Search Forms */
 
+.paginationControl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 32px auto;
+    gap: 12px;
+}
+
+.prevPage, .nextPage, .paginationLink {
+    font-family: "InterSemibold";
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 36px;
+    width: 36px;
+    background-color: var(--gray);
+    color: var(--white);
+    padding: 4px;
+}
+
+.prevPage:hover, .nextPage:hover, .paginationLink:hover {
+    background-color: var(--lightGray);
+}
+
 .searchForm {
     max-width: min(80%, 50rem);
     width: 100%;
@@ -381,19 +408,25 @@ form button svg {
 /* || Movie Cards */
 
 .cardContainer {
+    /* Fallback */
     display: flex;
     flex-flow: row wrap;
-    gap: 16px;
+    gap: 8px;
     max-width: min(90%, 86rem);
     margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    justify-content: space-evenly;
+
 }
 
 .movieCard {
-    padding: 8px;
     cursor: pointer;
     width: var(--cardWidth);
     min-width: var(--cardWidth);
     position: relative;
+    margin-bottom: 8px;
 }
 
 .movieCard:hover .movieCardTitle {
@@ -423,39 +456,39 @@ form button svg {
     position: relative;
 }
 
+.movieScore,
 .movieCardScore {
     color: var(--white);
     height: 40px;
     width: 40px;
-    position: absolute;
-    bottom: 29.5%;
-    right: 5%;
     background-color: var(--gray);
     border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 3px solid var(--orange);
+}
+
+.movieCardScore {
+    position: absolute;
+    top: 215px;
+    right: 5%;
     mask:
         linear-gradient(red 0 0) padding-box,
         conic-gradient(red 50%, transparent 0%) border-box;
 }
 
-.movieCardScore span {
+.movieCardScore span,
+.movieScore span {
     font-family: "ClashDisplaySemibold";
     text-align: center;
     font-size: var(--veryTiny);
 }
 
-.movieCard .veryTiny {
+.movieCardScore .veryTiny,
+.movieScore .veryTiny {
     font-size: 8px;
     display: inline;
-}
-
-@media (max-width: 950px) {
-    .cardContainer {
-        grid-template-columns: repeat(3, 1fr);
-    }
 }
 
 
@@ -553,10 +586,16 @@ form button svg {
 }
 
 .flexContainer {
+    /* Fallback */
     display: flex;
     flex-flow: row wrap;
     width: 100%;
-    gap: 1rem;
+    justify-content: space-evenly;
+    gap: 8px;
+
+    /* Grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 120px);
 }
 
 .actorProfile {
@@ -569,7 +608,27 @@ form button svg {
     width: 120px;
     height: 120px;
     object-fit: cover;
+    position: relative;
+
+    color: var(--black);
+    font-family: "InterSemiBold";
+    font-size: var(--p);
+    display: flex;
+    place-content: center;
 }
+
+.actorProfile img::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    background-image: url('./placeholders/default_profile.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
 
 .actorProfile .actorName {
     font-family: "InterSemibold";
@@ -659,6 +718,11 @@ form button svg {
     width: calc(5rem + 5vw);
 }
 
+.sliderContainer,
+.previewContainer {
+        scrollbar-color: var(--lightGray) var(--gray);
+}
+
 
 @media (max-width: 768px) {
     .movieContainer {
@@ -726,6 +790,9 @@ footer {
     color: var(--black);
 }
 
+.activeButton:hover {
+    background-color: var(--darkerWhite);
+}
 
 .fancy {
     font-family: 'ClashDisplayBold';
@@ -736,8 +803,10 @@ footer {
     display: none;
 }
 
-.fuiyo {
+.cardContainerTitle,
+.paginationControl {
     width: 100%;
+    grid-column: 1 / -1;
 }
 
 .darkGreenScore {
@@ -763,4 +832,15 @@ footer {
 .redScore {
     color: var(--lightRed);
     border-color: var(--red);
+}
+
+
+.pendingButton {
+    border-color: var(--bruhGray);
+    color: var(--bruhGray);
+    background-color: var(--lightGray);
+}
+
+.currentPage {
+    background-color: var(--lightGray);
 }

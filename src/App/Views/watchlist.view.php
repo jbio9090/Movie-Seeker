@@ -4,7 +4,7 @@
 
 
 <div class="cardContainer">
-    <h3 class="fuiyo">Your Watchlist</h3>
+    <h3 class="cardContainerTitle">Your Watchlist</h3>
 
 
     <?php if (isset($this->params['content'])): ?>

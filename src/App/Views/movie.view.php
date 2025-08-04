@@ -33,18 +33,37 @@
 
 
         <div class="bottomContainer">
-            <div class="userScore">
-                <?php $vote_average = $this->params['content']['vote_average'] ?>
-                <span>
-                    User Score -
-                    <span><?php echo " " . $vote_average ?? 'N/A' ?></span>
-                </span>
 
-            </div>
+                <?php
+                $vote_average = (float) $this->params['content']['vote_average'];
+                $percent_score = round($vote_average * 10);
+                $color;
+                if ($percent_score >= 80) {
+                    $color = "darkGreenScore";
+                } else if ($percent_score >= 60) {
+                    $color = "lightGreenScore";
+                } else if ($percent_score >= 40) {
+                    $color = "yellowScore";
+                } else if ($percent_score >= 20) {
+                    $color = "orangeScore";
+                } else {
+                    $color = "redScore";
+                }
+                ?>
+                <div class="movieScore <?php echo $color ?>" style="<?php echo "mask:         
+                linear-gradient(red 0 0) padding-box,
+                conic-gradient(red $percent_score%, transparent 0%) border-box;" ?>">
+                    <span><?php echo $percent_score; ?>
+                        <span class="veryTiny">
+                            %
+                        </span>
+                    </span>
+                </div>
+            
 
-            <form method="POST" class="nostyleform" action<?php echo $_SERVER['PHP_SELF']; ?>>
+            <form method="POST" class="nostyleform addToWatchlistForm">
                 <input type="hidden" name="movie_id" value="<?php echo $this->params['content']['id'] ?>">
-                <input type="hidden" name="in_watchlist" value="<?php echo $this->params['in_watchlist'] ?>">
+                <input type="hidden" name="in_watchlist" value="<?php echo $this->params['in_watchlist'] ?>" class="in_watchlist">
                 <input type="hidden" name="title" value="<?php echo $this->params['content']['title'] ?>">
                 <input type="hidden" name="poster_path" value="<?php echo $this->params['content']['poster_path'] ?>">
                 <input type="hidden" name="vote_average" value="<?php echo $vote_average ?? null ?>">
@@ -56,15 +75,12 @@
                 <?php endif; ?>
 
                 <button class="addToWatchlistButton
-                    <?php echo (($this->params['in_watchlist'] == 1) ? 'activeButton' : "") ?>
-                    ">
-
+                    <?php echo (($this->params['in_watchlist'] == 1) ? 'activeButton' : "") ?>">
                     <?php if ($this->params['in_watchlist'] == 1) {
-                        echo 'Remove from Watchlist';
-                    } else {
-                        echo 'Add to Watchlist';
-                    }
-                    ?>
+                            echo 'Remove from Watchlist';
+                        } else {
+                            echo 'Add to Watchlist';
+                        } ?>
                 </button>
             </form>
 
@@ -84,9 +100,9 @@
             <?php foreach ($this->params['content']['credits']["cast"] as $actor): ?>
                 <?php $count++ ?>
                 <div class="actorProfile <?php echo ($count >= 10) ? "lazy-img" : "showActor" ?>" data-src="<?php echo $actor['profile_path'] ?
-                             "https://image.tmdb.org/t/p/w200/" . $actor['profile_path'] :
-                             "./assets/placeholders/default_profile.jpg";
-                         ?>">
+                                                                                                                "https://image.tmdb.org/t/p/w200/" . $actor['profile_path'] :
+                                                                                                                "./assets/placeholders/default_profile.jpg";
+                                                                                                            ?>">
                     <img alt="<?php echo $actor['name'] ?>">
                     <p class="actorName"><?php echo $actor['name'] ?></p>
                     <p class="characterName"><?php echo $actor['character'] ?></p>
@@ -139,8 +155,8 @@
 
             <div class="movieCard" onclick="location.href='./movie?id=<?php echo $movie['id'] ?>'">
                 <img class="moviePoster" src="<?php echo (isset($movie['poster_path'])) ?
-                    "https://image.tmdb.org/t/p/w500/" . $movie['poster_path']
-                    : "./assets/placeholders/default_poster.jpg"; ?>" alt="<?php echo $movie['title'] . " poster" ?>">
+                                                    "https://image.tmdb.org/t/p/w200/" . $movie['poster_path']
+                                                    : "./assets/placeholders/default_poster.jpg"; ?>" alt="<?php echo $movie['title'] . " poster" ?>">
 
                 <h5 class="movieCardTitle"><?php echo $movie['title'] ?></h5>
 
@@ -213,18 +229,17 @@
             let state = showMore.textContent;
 
             lazyImg.forEach(item => {
-                if (state === "Show All") {
+                if (state === "Show Less") {
                     item.querySelector("img").src = "";
-                    showMore.textContent = "Show Less";
+                    showMore.textContent = "Show All";
                 } else {
                     item.querySelector("img").src = item.dataset.src;
-                    showMore.textContent = "Show All";
+                    showMore.textContent = "Show Less";
                 }
 
                 item.classList.toggle("none")
             });
         }
-
     </script>
 <?php endif; ?>
 
@@ -246,3 +261,59 @@
         }
     </script>
 <?php endif; ?>
+
+
+
+<script>
+    "use-strict";
+
+    const addToWatchlistForm = document.querySelector(".addToWatchlistForm");
+
+    addToWatchlistForm.addEventListener("submit", addToWatchlist);
+
+
+    async function addToWatchlist(e) {
+        e.preventDefault();
+
+        let formData = new FormData(addToWatchlistForm);
+        let data = new URLSearchParams(formData);
+
+        try {
+            const in_watchlist = document.querySelector("input.in_watchlist");
+            const addToWatchlistButton = document.querySelector(".addToWatchlistButton");
+
+            addToWatchlistButton.disabled = true;
+            addToWatchlistButton.classList.toggle("activeButton");
+            addToWatchlistButton.classList.add("pendingButton");
+
+
+            let response = await fetch(`<?php echo $_SERVER['REQUEST_URI'] ?>`, {
+                'method': 'post',
+                'body': data
+            });
+
+
+            let result = await response.json();
+            // console.log(result.message);
+
+            if (result.message === "added") {
+                in_watchlist.value = 1
+                addToWatchlistButton.innerHTML = "Remove from Watchlist";
+            } else if (result.message === "deleted") {
+                in_watchlist.value = 0;
+                addToWatchlistButton.innerHTML = "Add to Watchlist";
+            } else if (result.message === "not_logged_in") {
+                window.location.href = "./watchlist";
+            }
+
+            addToWatchlistButton.classList.remove("pendingButton");
+            addToWatchlistButton.disabled = false;
+
+        } catch (err) {
+            console.error(err);
+        }
+
+
+
+    }
+</script>
