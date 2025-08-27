@@ -218,7 +218,9 @@ nav {
     display: none;
 }
 
-
+#logo {
+    width: 50px;
+}
 
 
 

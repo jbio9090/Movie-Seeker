@@ -1,0 +1,26 @@
+services:
+  web:
+    ports:
+    - 80:80
+    build: .
+    volumes:
+      - ./:/var/www/html
+      - ./vhost.conf:/etc/apache2/sites-available/000-default.conf
+  
+  db:
+    image: mariadb:11
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: movieseekerdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db:/var/lib/mysql
+
+  adminer: 
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  db:

@@ -79,69 +79,75 @@
 
 
     <?php
-    $page = $this->params['page'];
-    $total_pages = $this->params['total_pages'];
+    if (isset($this->params['content'])):
     ?>
 
-    <div class="paginationControl">
-
-        <a class="prevPage" href="./search?<?php $prev = $page - 1;
-                                            echo "query=$query&page=$prev" ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" fill='currentColor' viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                <path d="M201.4 297.4C188.9 309.9 188.9 330.2 201.4 342.7L361.4 502.7C373.9 515.2 394.2 515.2 406.7 502.7C419.2 490.2 419.2 469.9 406.7 457.4L269.3 320L406.6 182.6C419.1 170.1 419.1 149.8 406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3L201.3 297.3z" />
-            </svg>
-        </a>
-
         <?php
-        $visiblePages = 5;
-        $half = floor($visiblePages / 2);
-
-        $start = max(2, $page - $half);
-        $end = min($total_pages - 1, $page + $half);
-
-        if ($end - $start + 1 < $visiblePages) {
-            if ($start == 1) {
-                $end = min($total_pages, $start + $visiblePages - 1);
-            } else if ($end == $total_pages) {
-                $start = max(1, $total_pages - $visiblePages + 1);
-            }
-        }
+        $page = $this->params['page'];
+        $total_pages = $this->params['total_pages'];
         ?>
 
-        <a href="./search?<?php echo "query=$query&page=1" ?>" class="paginationLink <?php echo ($page == $i) ? "currentPage" : ""; ?>">
-            <?php echo 1 ?>
-        </a>
-        <?php if ($start > 2): ?>
-            <span>
-                ...
-            </span>
-        <? endif; ?>
+        <div class="paginationControl">
 
-        <?php for ($i = $start; $i <= $end; $i++): ?>
-
-            <a href="./search?<?php echo "query=$query&page=$i" ?>" class="paginationLink <?php echo ($page == $i) ? "currentPage" : ""; ?>">
-                <?php echo $i ?>
+            <a class="prevPage" href="./search?<?php $prev = $page - 1;
+                                                echo "query=$query&page=$prev" ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" fill='currentColor' viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path d="M201.4 297.4C188.9 309.9 188.9 330.2 201.4 342.7L361.4 502.7C373.9 515.2 394.2 515.2 406.7 502.7C419.2 490.2 419.2 469.9 406.7 457.4L269.3 320L406.6 182.6C419.1 170.1 419.1 149.8 406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3L201.3 297.3z" />
+                </svg>
             </a>
 
-        <?php endfor; ?>
+            <?php
+            $visiblePages = 5;
+            $half = floor($visiblePages / 2);
 
-        <?php if ($end < $total_pages - 2): ?>
-            <span>
-                ...
-            </span>
-        <? endif; ?>
-        <a href="./search?<?php echo "query=$query&page=$total_pages" ?>" class="paginationLink <?php echo ($page == $i) ? "currentPage" : ""; ?>">
-            <?php echo $total_pages ?>
-        </a>
+            $start = max(2, $page - $half);
+            $end = min($total_pages - 1, $page + $half);
+
+            if ($end - $start + 1 < $visiblePages) {
+                if ($start == 1) {
+                    $end = min($total_pages, $start + $visiblePages - 1);
+                } else if ($end == $total_pages) {
+                    $start = max(1, $total_pages - $visiblePages + 1);
+                }
+            }
+            ?>
+
+            <a href="./search?<?php echo "query=$query&page=1" ?>" class="paginationLink <?php echo ($page == $i) ? "currentPage" : ""; ?>">
+                <?php echo 1 ?>
+            </a>
+            <?php if ($start > 2): ?>
+                <span>
+                    ...
+                </span>
+            <? endif; ?>
+
+            <?php for ($i = $start; $i <= $end; $i++): ?>
+
+                <a href="./search?<?php echo "query=$query&page=$i" ?>" class="paginationLink <?php echo ($page == $i) ? "currentPage" : ""; ?>">
+                    <?php echo $i ?>
+                </a>
+
+            <?php endfor; ?>
+
+            <?php if ($end < $total_pages - 2): ?>
+                <span>
+                    ...
+                </span>
+            <? endif; ?>
+            <a href="./search?<?php echo "query=$query&page=$total_pages" ?>" class="paginationLink <?php echo ($page == $i) ? "currentPage" : ""; ?>">
+                <?php echo $total_pages ?>
+            </a>
 
 
-        <a class="nextPage" href="./search?<?php $next = $page + 1;
-                                            echo "query=$query&page=$next" ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                <path d="M439.1 297.4C451.6 309.9 451.6 330.2 439.1 342.7L279.1 502.7C266.6 515.2 246.3 515.2 233.8 502.7C221.3 490.2 221.3 469.9 233.8 457.4L371.2 320L233.9 182.6C221.4 170.1 221.4 149.8 233.9 137.3C246.4 124.8 266.7 124.8 279.2 137.3L439.2 297.3z" />
-            </svg>
-        </a>
+            <a class="nextPage" href="./search?<?php $next = $page + 1;
+                                                echo "query=$query&page=$next" ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path d="M439.1 297.4C451.6 309.9 451.6 330.2 439.1 342.7L279.1 502.7C266.6 515.2 246.3 515.2 233.8 502.7C221.3 490.2 221.3 469.9 233.8 457.4L371.2 320L233.9 182.6C221.4 170.1 221.4 149.8 233.9 137.3C246.4 124.8 266.7 124.8 279.2 137.3L439.2 297.3z" />
+                </svg>
+            </a>
 
-    </div>
+        </div>
+    <?php endif; ?>
+
 
 </div>

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?php echo "./assets/styles.css" ?>">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     <title><?php echo $this->params["title"] ?></title>
 </head>
 
@@ -14,7 +15,7 @@
     <div class="navBar">
         <nav>
 
-            <img id="logo" src="">
+            <img id="logo" src="./assets/MovieSeekerLogo.svg">
 
             <a class="showMenu navIcons">
                 <img src="" alt="menu-icon" height="28px" width="28px">
