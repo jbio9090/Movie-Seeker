@@ -27,7 +27,7 @@ class Mail
 
 
             //Content
-            $link = "movieseeker.com/activate?token=$token";
+            $link = "http://localhost/activate?token=$token";
             $email = "
             <h1>MovieSeeker</h1>
             <p>Please click the link to activate your account</p>

@@ -271,7 +271,9 @@ nav {
     gap: 12px;
 }
 
-.prevPage, .nextPage, .paginationLink {
+.prevPage,
+.nextPage,
+.paginationLink {
     font-family: "InterSemibold";
     text-decoration: none;
     display: flex;
@@ -285,7 +287,9 @@ nav {
     padding: 4px;
 }
 
-.prevPage:hover, .nextPage:hover, .paginationLink:hover {
+.prevPage:hover,
+.nextPage:hover,
+.paginationLink:hover {
     background-color: var(--lightGray);
 }
 
@@ -370,7 +374,8 @@ form button svg {
     text-align: center;
 }
 
-.formButton {
+.formButton,
+.loginWithGoogle {
     font-family: 'InterMedium';
     padding: 1rem 1.125rem;
     font-size: var(--p);
@@ -381,7 +386,15 @@ form button svg {
     background-color: var(--lightGray);
     border: none;
     border-radius: 12px;
-    margin-top: 3rem;
+    margin-top: 1rem;
+    text-decoration: none;
+}
+
+
+
+.googleIcon {
+    width: 20px;
+    height: 20px;
 }
 
 .loginForm a {
@@ -392,6 +405,20 @@ form button svg {
 
 .loginForm a:hover {
     color: var(--orange);
+}
+
+.loginWithGoogle {
+    font-family: "InterSemibold";
+    background-color: var(--black);
+    border: 1px var(--white) solid;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+a.loginWithGoogle:hover {
+    background-color: var(--white);
+    color: var(--black);
 }
 
 .createNewAccountLink {
@@ -722,7 +749,7 @@ form button svg {
 
 .sliderContainer,
 .previewContainer {
-        scrollbar-color: var(--lightGray) var(--gray);
+    scrollbar-color: var(--lightGray) var(--gray);
 }
 
 
@@ -836,6 +863,12 @@ footer {
     border-color: var(--red);
 }
 
+.or {
+    width: 100%;
+    text-align: center;
+    font-family: "InterSemiBold";
+    margin: 1rem auto;
+}
 
 .pendingButton {
     border-color: var(--bruhGray);

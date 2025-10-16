@@ -33,6 +33,7 @@ try {
         ->get('/register', [Controllers\RegisterController::class, 'index'])
         ->post('/register', [Controllers\RegisterController::class, 'registerAccount'])
         ->get('/activate', [Controllers\RegisterController::class, 'activateAccount'])
+        ->get("/login/redirect", [Controllers\LoginController::class, "redirectFromGoogle"])
         ->post('/login', [Controllers\LoginController::class, 'verifyLogin'])
         ->get('/account', [Controllers\AccountController::class, 'index'])
         ->get('/account/logout', [Controllers\AccountController::class, 'logout'])

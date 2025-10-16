@@ -1,23 +1,38 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Models\Account;
 use App\View;
 use App\Models\Mail;
 use DateTime;
+use App\Models\GoogleLogin;
 
 class RegisterController
 {
-
+    private $client;
 
     public function index()
     {
-        $view = new View(
-            "register.view",
-            ["title" => "Register Account"]
-        );
+        if (!isset($_SESSION['user'])) {
+            $this->client = GoogleLogin::setupGoogleLogin();
+            $authUrl = $this->client->createAuthUrl();
+
+            $view = new View(
+                "register.view",
+                [
+                    "title" => "Register Account",
+                    "googleAuthUrl" => $authUrl
+                ]
+            );
+        } else {
+            $view = new View(
+                "already-logged-in.view",
+                ["title" => "Already Logged In"]
+            );
+        }
 
         echo $view->render();
     }
@@ -55,10 +70,10 @@ class RegisterController
     public function activateAccount()
     {
         $token = $_GET['token'];
-        $dateFormat = 'Y-m-d H:i:s'; 
+        $dateFormat = 'Y-m-d H:i:s';
 
         $account = Account::getUserDetails($token, Account::USER_TOKEN);
-        
+
 
         if (strtotime($account['token_expiry']) < time()) {
             Account::deleteAccount($account['user_id']);
@@ -73,5 +88,4 @@ class RegisterController
         $view = new View("account-activated.view", ['title' => 'Account Activated']);
         echo $view->render();
     }
-
 }

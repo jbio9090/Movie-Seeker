@@ -2,11 +2,13 @@ CREATE TABLE users (
     user_id         varchar(36)         NOT NULL,
     username        varchar(30)         NOT NULL,
     email           varchar(255)        NOT NULL,
-    password_hash   varchar(255)        NOT NULL,
+    password_hash   varchar(255)        NULL,
+    google_id       varchar(255)        NULL,
     is_activated    tinyint(1)          DEFAULT 0,
     token           varchar(255)        NOT NULL,
     token_expiry    datetime            NOT NULL,
     created_at      timestamp           DEFAULT current_timestamp()     NOT NULL,
+    login_type      enum("normal", "google") DEFAULT "normal",  
     PRIMARY KEY (user_id)
 );
 
