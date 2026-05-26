@@ -1,66 +1,43 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Models;
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
+use Mailtrap\MailtrapClient;
+use Mailtrap\Mime\MailtrapEmail;
+use Symfony\Component\Mime\Address;
+use Exception;
 
 class Mail
 {
-    public static function sendActivationLink(string $recipient, string $token, string $sender = "from@example.com")
+    public static function sendActivationLink(string $recipient, string $token, string $sender = "movieseekerwebsite123@gmail.com")
     {
-
-        //Create an instance; passing `true` enables exceptions
-        $mail = new PHPMailer(true);
-
         try {
+            $apiKey = $_ENV['MAILTRAP_API_KEY']; 
 
-            //Set server settings
-            self::setServerSettings($mail);
+            $mailtrap = MailtrapClient::initSendingEmails(
+                apiKey: $apiKey,
+            );
 
-            //Recipients
-            $mail->setFrom($sender);
-            $mail->addAddress($recipient);     //Add a recipient
-
-
-            //Content
-            $link = "http://localhost/activate?token=$token";
-            $email = "
+            $link = $_ENV['app_url'] . "activate?token=$token";
+            $emailHtml = "
             <h1>MovieSeeker</h1>
             <p>Please click the link to activate your account</p>
             <a href='$link'>$link</a>
             ";
 
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Email Activation Link';
-            $mail->Body = $email;
-            $mail->AltBody = strip_tags($email);
+            $email = (new MailtrapEmail())
+                ->from(new Address($sender, 'MovieSeeker'))
+                ->to(new Address($recipient))
+                ->subject('Email Activation Link')
+                ->html($emailHtml)
+                ->text(strip_tags($emailHtml));
 
-            $mail->send();
+            $response = $mailtrap->send($email);
 
-            // alert the user that it has been sent
-            
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "Message could not be sent. Mailer Error: {$e->getMessage()}";
         }
-
     }
-
-
-    private static function setServerSettings(PHPMailer $mail)
-    {
-        //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
-        $mail->isSMTP();                                         //Send using SMTP
-        $mail->Host = 'sandbox.smtp.mailtrap.io';                //Set the SMTP server to send through
-        $mail->SMTPAuth = true;                                  //Enable SMTP authentication
-        $mail->Username = '835f9dcddec973';                      //SMTP username
-        $mail->Password = '26928a4d478f29';                      //SMTP password
-        $mail->Port = 465;                                       //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-    }
-
-
 }

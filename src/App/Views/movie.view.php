@@ -34,32 +34,32 @@
 
         <div class="bottomContainer">
 
-                <?php
-                $vote_average = (float) $this->params['content']['vote_average'];
-                $percent_score = round($vote_average * 10);
-                $color;
-                if ($percent_score >= 80) {
-                    $color = "darkGreenScore";
-                } else if ($percent_score >= 60) {
-                    $color = "lightGreenScore";
-                } else if ($percent_score >= 40) {
-                    $color = "yellowScore";
-                } else if ($percent_score >= 20) {
-                    $color = "orangeScore";
-                } else {
-                    $color = "redScore";
-                }
-                ?>
-                <div class="movieScore <?php echo $color ?>" style="<?php echo "mask:         
+            <?php
+            $vote_average = (float) $this->params['content']['vote_average'];
+            $percent_score = round($vote_average * 10);
+            $color;
+            if ($percent_score >= 80) {
+                $color = "darkGreenScore";
+            } else if ($percent_score >= 60) {
+                $color = "lightGreenScore";
+            } else if ($percent_score >= 40) {
+                $color = "yellowScore";
+            } else if ($percent_score >= 20) {
+                $color = "orangeScore";
+            } else {
+                $color = "redScore";
+            }
+            ?>
+            <div class="movieScore <?php echo $color ?>" style="<?php echo "mask:         
                 linear-gradient(red 0 0) padding-box,
                 conic-gradient(red $percent_score%, transparent 0%) border-box;" ?>">
-                    <span><?php echo $percent_score; ?>
-                        <span class="veryTiny">
-                            %
-                        </span>
+                <span><?php echo $percent_score; ?>
+                    <span class="veryTiny">
+                        %
                     </span>
-                </div>
-            
+                </span>
+            </div>
+
 
             <form method="POST" class="nostyleform addToWatchlistForm">
                 <input type="hidden" name="movie_id" value="<?php echo $this->params['content']['id'] ?>">
@@ -77,10 +77,10 @@
                 <button class="addToWatchlistButton
                     <?php echo (($this->params['in_watchlist'] == 1) ? 'activeButton' : "") ?>">
                     <?php if ($this->params['in_watchlist'] == 1) {
-                            echo 'Remove from Watchlist';
-                        } else {
-                            echo 'Add to Watchlist';
-                        } ?>
+                        echo 'Remove from Watchlist';
+                    } else {
+                        echo 'Add to Watchlist';
+                    } ?>
                 </button>
             </form>
 
@@ -204,9 +204,6 @@
     </div>
 </div>
 
-
-
-
 <?php if (count($this->params['content']['credits']["cast"]) > 10): ?>
     <script>
         "use-strict";
@@ -261,8 +258,6 @@
         }
     </script>
 <?php endif; ?>
-
-
 
 <script>
     "use-strict";
